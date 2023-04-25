@@ -102,7 +102,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do amigo: ");
+            Console.Write("Digite o id do registro: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
             repositorioBase.Excluir(id);
