@@ -57,7 +57,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             int quantidade = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Digite a data: ");
-            DateTime data = Convert.ToDateTime(Console.ReadLine());
+            DateTime data = Convert.ToDateTime(Console.ReadLine());            
 
             return new RequisicaoEntrada(medicamento, quantidade, data, funcionario);
         }
@@ -74,6 +74,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             //Pegar o objeto no repositorio de Funcionario a partir do id selecionado
             Funcionario funcionario = repositorioFuncionario.SelecionarPorId(idFuncionario);
 
+            Console.WriteLine();
+
             return funcionario;
         }
 
@@ -88,6 +90,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
             //Pegar o objeto no repositorio de Medicamento a partir do id selecionado
             Medicamento medicamento = repositorioMedicamento.SelecionarPorId(idMedicamento);
+
+            Console.WriteLine();
 
             return medicamento;
         }

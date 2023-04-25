@@ -31,9 +31,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             Console.WriteLine("Digite 1 para Inserir Medicamento");
             Console.WriteLine("Digite 2 para Visualizar Medicamentos");
             Console.WriteLine("Digite 3 para Editar Medicamentos");
-            Console.WriteLine("Digite 4 para Excluir Medicamentos\n");
-
-            Console.WriteLine("Digite 5 para Visualizar Medicamentos Mais Retirados\n");
+            Console.WriteLine("Digite 4 para Excluir Medicamentos");
+            Console.WriteLine("Digite 5 para Visualizar Medicamentos Mais Retirados");
             Console.WriteLine("Digite 6 para Visualizar Medicamentos em Falta\n");
 
             Console.WriteLine("Digite s para Sair");
