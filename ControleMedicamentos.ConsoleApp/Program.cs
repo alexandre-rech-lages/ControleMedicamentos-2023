@@ -3,6 +3,7 @@ using ControleMedicamentos.ConsoleApp.ModuloFuncionario;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPaciente;
 using ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada;
+using ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida;
 using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp
@@ -18,7 +19,10 @@ namespace ControleMedicamentos.ConsoleApp
 
             RepositorioRequisicaoEntrada repositorioRequisicaoEntrada = new RepositorioRequisicaoEntrada(new ArrayList());
 
-            CadastrarRegistros(repositorioFuncionario, repositorioFornecedor, repositorioMedicamento, repositorioPaciente);
+            RepositorioRequisicaoSaida repositorioRequisicaoSaida = new RepositorioRequisicaoSaida(new ArrayList());    
+
+            CadastrarRegistros(repositorioFuncionario, repositorioFornecedor, 
+                repositorioMedicamento, repositorioPaciente, repositorioRequisicaoEntrada);
 
             TelaFornecedor telaFornecedor = new TelaFornecedor(repositorioFornecedor);
             TelaFuncionario telaFuncionario = new TelaFuncionario(repositorioFuncionario);
@@ -29,6 +33,9 @@ namespace ControleMedicamentos.ConsoleApp
 
             TelaRequisicaoEntrada telaRequisicaoEntrada = new TelaRequisicaoEntrada(repositorioRequisicaoEntrada,
                 repositorioFuncionario, repositorioMedicamento, telaFuncionario, telaMedicamento);
+
+            TelaRequisicaoSaida telaRequisicaoSaida = new TelaRequisicaoSaida(repositorioRequisicaoSaida, repositorioPaciente, telaPaciente,
+                repositorioFuncionario, telaFuncionario, repositorioMedicamento, telaMedicamento);
 
             TelaPrincipal principal = new TelaPrincipal();
 
@@ -157,6 +164,28 @@ namespace ControleMedicamentos.ConsoleApp
                         telaRequisicaoEntrada.ExcluirRegistro();
                     }
                 }
+                else if (opcao == "6")
+                {
+                    string subMenu = telaRequisicaoSaida.ApresentarMenu();
+
+                    if (subMenu == "1")
+                    {
+                        telaRequisicaoSaida.InserirNovoRegistro();
+                    }
+                    else if (subMenu == "2")
+                    {
+                        telaRequisicaoSaida.VisualizarRegistros(true);
+                        Console.ReadLine();
+                    }
+                    else if (subMenu == "3")
+                    {
+                        telaRequisicaoSaida.EditarRegistro();
+                    }
+                    else if (subMenu == "4")
+                    {
+                        telaRequisicaoSaida.ExcluirRegistro();
+                    }
+                }
             }
         }
 
@@ -165,7 +194,8 @@ namespace ControleMedicamentos.ConsoleApp
             RepositorioFuncionario repositorioFuncionario,
             RepositorioFornecedor repositorioFornecedor,
             RepositorioMedicamento repositorioMedicamento,
-            RepositorioPaciente repositorioPaciente)
+            RepositorioPaciente repositorioPaciente,
+            RepositorioRequisicaoEntrada repositorioRequisicaoEntrada)
         {
 
             Funcionario funcionario1 = new Funcionario("Alexandre Rech", "rech", "123");
@@ -196,7 +226,11 @@ namespace ControleMedicamentos.ConsoleApp
             repositorioPaciente.Inserir(paciente3);
             repositorioPaciente.Inserir(paciente4);
 
+            RequisicaoEntrada requisicaoEntrada1 = new RequisicaoEntrada(medicamento1, 10, DateTime.Now, funcionario1);
+            RequisicaoEntrada requisicaoEntrada2 = new RequisicaoEntrada(medicamento2, 20, DateTime.Now, funcionario2);
 
+            repositorioRequisicaoEntrada.Inserir(requisicaoEntrada1);
+            repositorioRequisicaoEntrada.Inserir(requisicaoEntrada2);
         }
     }
 }

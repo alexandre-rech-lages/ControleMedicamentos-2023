@@ -32,9 +32,14 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             this.fornecedor = medicamentoAtualizado.fornecedor;
         }
 
-        public void RegistrarEntrada(int qtd)
+        public void AdicionarQuantidade(int qtd)
         {
             this.quantidade += qtd;
-        }       
+        }
+
+        public void RemoverQuantidade(int qtd)
+        {
+            this.quantidade -= qtd;
+        }
     }
 }

@@ -13,7 +13,8 @@
             Console.WriteLine("Digite 3 para Cadastrar Pacientes");
             Console.WriteLine("Digite 4 para Cadastrar Medicamentos");
 
-            Console.WriteLine("Digite 5 para Cadastrar Requisições de Entrada\n");
+            Console.WriteLine("Digite 5 para Cadastrar Requisições de Entrada");
+            Console.WriteLine("Digite 6 para Cadastrar Requisições de Saída\n");
 
             Console.WriteLine("Digite s para Sair");
 

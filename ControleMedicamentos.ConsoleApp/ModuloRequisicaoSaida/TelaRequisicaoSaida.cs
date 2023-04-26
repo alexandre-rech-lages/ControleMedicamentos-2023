@@ -1,35 +1,39 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
 using ControleMedicamentos.ConsoleApp.ModuloFuncionario;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
+using ControleMedicamentos.ConsoleApp.ModuloPaciente;
 using System.Collections;
 
-namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
+namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
 {
-    public class TelaRequisicaoEntrada : TelaBase
+    public class TelaRequisicaoSaida : TelaBase
     {
-        private RepositorioRequisicaoEntrada repositorioRequisicaoEntrada;
+        private RepositorioRequisicaoSaida repositorioRequisicaoSaida;
+
+        private RepositorioPaciente repositorioPaciente;
+        private TelaPaciente telaPaciente;
 
         private RepositorioFuncionario repositorioFuncionario;
-        private RepositorioMedicamento repositorioMedicamento;
-
         private TelaFuncionario telaFuncionario;
+
+        private RepositorioMedicamento repositorioMedicamento;
         private TelaMedicamento telaMedicamento;
 
-        public TelaRequisicaoEntrada(RepositorioRequisicaoEntrada repositorioRequisicaoEntrada, 
-            RepositorioFuncionario repositorioFuncionario, RepositorioMedicamento repositorioMedicamento, 
-            TelaFuncionario telaFuncionario, TelaMedicamento telaMedicamento)
+        public TelaRequisicaoSaida(RepositorioRequisicaoSaida repositorioRequisicaoSaida,
+            RepositorioPaciente repositorioPaciente, TelaPaciente telaPaciente, 
+            RepositorioFuncionario repositorioFuncionario, TelaFuncionario telaFuncionario, 
+            RepositorioMedicamento repositorioMedicamento, TelaMedicamento telaMedicamento)
         {
-            this.repositorioBase = repositorioRequisicaoEntrada;
-
-            this.repositorioRequisicaoEntrada = repositorioRequisicaoEntrada;
+            this.repositorioBase = repositorioRequisicaoSaida;
+            this.repositorioPaciente = repositorioPaciente;
+            this.telaPaciente = telaPaciente;
             this.repositorioFuncionario = repositorioFuncionario;
-            this.repositorioMedicamento = repositorioMedicamento;
             this.telaFuncionario = telaFuncionario;
+            this.repositorioMedicamento = repositorioMedicamento;
             this.telaMedicamento = telaMedicamento;
 
-            nomeEntidade = "Requisições de Entrada";
-        }        
-
+            nomeEntidade = "Requisição de Saída";
+        }
 
         public override void EditarRegistro()
         {
@@ -41,12 +45,12 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
             Console.Write("Digite o id do registro: ");
             int id = Convert.ToInt32(Console.ReadLine());
-            
-            RequisicaoEntrada requisicaoEntrada = repositorioRequisicaoEntrada.SelecionarPorId(id);            
+
+            RequisicaoSaida requisicaoSaida = repositorioRequisicaoSaida.SelecionarPorId(id);
 
             EntidadeBase registroAtualizado = ObterRegistro();
 
-            requisicaoEntrada.DesfazerRegistroEntrada();
+            requisicaoSaida.DesfazerRegistroSaida();
 
             repositorioBase.Editar(id, registroAtualizado);
 
@@ -64,9 +68,9 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             Console.Write("Digite o id do registro: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            RequisicaoEntrada requisicaoEntrada = repositorioRequisicaoEntrada.SelecionarPorId(id);
+            RequisicaoSaida requisicaoEntrada = repositorioRequisicaoSaida.SelecionarPorId(id);
 
-            requisicaoEntrada.DesfazerRegistroEntrada();
+            requisicaoEntrada.DesfazerRegistroSaida();
 
             repositorioBase.Excluir(id);
 
@@ -75,18 +79,21 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
         protected override void MostrarTabela(ArrayList registros)
         {
-            Console.WriteLine("{0, -10} | {1, -10} | {2, -20} | {3, -20}", "Id", "Data", "Medicamento", "Fonecedor", "Quantidade");
+            const string FORMATO_TABELA = "{0, -10} | {1, -10} | {2, -20} | {3, -20} | {4, -20} | {5, -20}";
+
+            Console.WriteLine(FORMATO_TABELA, "Id", "Data", "Medicamento", "Fonecedor", "Paciente", "Quantidade");
 
             Console.WriteLine("--------------------------------------------------------------------");
 
-            foreach (RequisicaoEntrada requisicaoEntrada in registros)
+            foreach (RequisicaoSaida requisicaoSaida in registros)
             {
-                Console.WriteLine("{0, -10} | {1, -10} | {2, -20} | {3, -20}", 
-                    requisicaoEntrada.id, 
-                    requisicaoEntrada.data.ToShortDateString(),
-                    requisicaoEntrada.medicamento.nome, 
-                    requisicaoEntrada.medicamento.fornecedor.nome, 
-                    requisicaoEntrada.quantidade);
+                Console.WriteLine(FORMATO_TABELA,
+                    requisicaoSaida.id,
+                    requisicaoSaida.data.ToShortDateString(),
+                    requisicaoSaida.medicamento.nome,
+                    requisicaoSaida.medicamento.fornecedor.nome,
+                    requisicaoSaida.paciente.nome,
+                    requisicaoSaida.quantidade);
             }
         }
 
@@ -96,18 +103,35 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
             Funcionario funcionario = ObterFuncionario();
 
+            Paciente paciente = ObterPaciente();
+
             Console.Write("Digite a quantidade de caixas: ");
             int quantidade = Convert.ToInt32(Console.ReadLine());
 
             Console.Write("Digite a data: ");
-            DateTime data = Convert.ToDateTime(Console.ReadLine());            
+            DateTime data = Convert.ToDateTime(Console.ReadLine());
 
-            return new RequisicaoEntrada(medicamento, quantidade, data, funcionario);
+            return new RequisicaoSaida(medicamento, quantidade, data, funcionario, paciente);
+        }
+
+        private Paciente ObterPaciente()
+        {
+            telaPaciente.VisualizarRegistros(false);
+
+            //Selecionar um paciente por id
+            Console.Write("\nDigite o id do Funcionário: ");
+            int idPaciente = Convert.ToInt32(Console.ReadLine());
+
+            //Pegar o objeto no repositorio de Paciente a partir do id selecionado
+            Paciente paciente = repositorioPaciente.SelecionarPorId(idPaciente);
+
+            Console.WriteLine();
+
+            return paciente;
         }
 
         private Funcionario ObterFuncionario()
         {
-            //Visulizar a lista de funcionarios
             telaFuncionario.VisualizarRegistros(false);
 
             //Selecionar um funcionario por id
@@ -139,5 +163,4 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             return medicamento;
         }
     }
-
 }

@@ -18,7 +18,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             this.data = data;
             this.funcionario = funcionario;
 
-            this.medicamento.RegistrarEntrada(quantidade);
+            this.medicamento.AdicionarQuantidade(quantidade);
         }
 
         public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
@@ -29,6 +29,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             this.quantidade = requisicaoEntradaAtualizada.quantidade;
             this.data = requisicaoEntradaAtualizada.data;
             this.funcionario = requisicaoEntradaAtualizada.funcionario;
+        }
+
+        public void DesfazerRegistroEntrada()
+        {
+            medicamento.RemoverQuantidade(quantidade);
         }
     }
 

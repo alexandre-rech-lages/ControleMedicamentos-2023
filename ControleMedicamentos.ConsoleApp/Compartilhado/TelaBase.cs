@@ -49,7 +49,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             return opcao;
         }
 
-        public void InserirNovoRegistro()
+        public virtual void InserirNovoRegistro()
         {
             MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Inserindo um novo registro...");
 
@@ -60,7 +60,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             MostrarMensagem("Registro inserido com sucesso!", ConsoleColor.Green);
         }
 
-        public void VisualizarRegistros(bool mostrarCabecalho)
+        public virtual void VisualizarRegistros(bool mostrarCabecalho)
         {
             if (mostrarCabecalho)
                 MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Visualizando registros já cadastrados...");
@@ -76,7 +76,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             MostrarTabela(registros);
         }
 
-        public void EditarRegistro()
+        public virtual void EditarRegistro()
         {
             MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Editando um registro já cadastrado...");
 
