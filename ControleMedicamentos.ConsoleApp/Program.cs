@@ -19,14 +19,14 @@ namespace ControleMedicamentos.ConsoleApp
 
             RepositorioRequisicaoEntrada repositorioRequisicaoEntrada = new RepositorioRequisicaoEntrada(new ArrayList());
 
-            RepositorioRequisicaoSaida repositorioRequisicaoSaida = new RepositorioRequisicaoSaida(new ArrayList());    
+            RepositorioRequisicaoSaida repositorioRequisicaoSaida = new RepositorioRequisicaoSaida(new ArrayList());
 
-            CadastrarRegistros(repositorioFuncionario, repositorioFornecedor, 
-                repositorioMedicamento, repositorioPaciente, repositorioRequisicaoEntrada);
+            CadastrarRegistros(repositorioFuncionario, repositorioFornecedor,
+                repositorioMedicamento, repositorioPaciente, repositorioRequisicaoEntrada, repositorioRequisicaoSaida);
 
             TelaFornecedor telaFornecedor = new TelaFornecedor(repositorioFornecedor);
             TelaFuncionario telaFuncionario = new TelaFuncionario(repositorioFuncionario);
-            TelaPaciente telaPaciente = new TelaPaciente(repositorioPaciente);            
+            TelaPaciente telaPaciente = new TelaPaciente(repositorioPaciente);
 
             TelaMedicamento telaMedicamento = new TelaMedicamento(repositorioMedicamento, telaFornecedor, repositorioFornecedor);
 
@@ -136,10 +136,12 @@ namespace ControleMedicamentos.ConsoleApp
                     else if (subMenu == "5")
                     {
                         telaMedicamento.VisualizarMedicamentosMaisRetirados();
+                        Console.ReadLine() ;
                     }
                     else if (subMenu == "6")
                     {
                         telaMedicamento.VisulizarMedicamentosEmFalta();
+                        Console.ReadLine();
                     }
                 }
                 else if (opcao == "5")
@@ -195,7 +197,8 @@ namespace ControleMedicamentos.ConsoleApp
             RepositorioFornecedor repositorioFornecedor,
             RepositorioMedicamento repositorioMedicamento,
             RepositorioPaciente repositorioPaciente,
-            RepositorioRequisicaoEntrada repositorioRequisicaoEntrada)
+            RepositorioRequisicaoEntrada repositorioRequisicaoEntrada,
+            RepositorioRequisicaoSaida repositorioRequisicaoSaida)
         {
 
             Funcionario funcionario1 = new Funcionario("Alexandre Rech", "rech", "123");
@@ -213,8 +216,13 @@ namespace ControleMedicamentos.ConsoleApp
             Medicamento medicamento1 = new Medicamento("Gliclazida", "Remédio p/ Diabetes", "321-987", new DateTime(2024, 01, 01), fornecedor1);
             Medicamento medicamento2 = new Medicamento("Entresto", "Remédio p/ Coração", "987-321", new DateTime(2024, 01, 01), fornecedor2);
 
+            Medicamento medicamento3 = new Medicamento("Bisoprolol", "Remédio p/ Coração", "321-987", new DateTime(2024, 01, 01), fornecedor1);
+            Medicamento medicamento4 = new Medicamento("Rosuvastatina", "Remédio p/ Triglicerídeos", "987-321", new DateTime(2024, 01, 01), fornecedor2);
+
             repositorioMedicamento.Inserir(medicamento1);
             repositorioMedicamento.Inserir(medicamento2);
+            repositorioMedicamento.Inserir(medicamento3);
+            repositorioMedicamento.Inserir(medicamento4);
 
             Paciente paciente1 = new Paciente("Gabriel Rech", "741258963");
             Paciente paciente2 = new Paciente("Palmira Souza", "582147852");
@@ -226,11 +234,35 @@ namespace ControleMedicamentos.ConsoleApp
             repositorioPaciente.Inserir(paciente3);
             repositorioPaciente.Inserir(paciente4);
 
-            RequisicaoEntrada requisicaoEntrada1 = new RequisicaoEntrada(medicamento1, 10, DateTime.Now, funcionario1);
+            RequisicaoEntrada requisicaoEntrada1 = new RequisicaoEntrada(medicamento1, 20, DateTime.Now, funcionario1);
             RequisicaoEntrada requisicaoEntrada2 = new RequisicaoEntrada(medicamento2, 20, DateTime.Now, funcionario2);
+            RequisicaoEntrada requisicaoEntrada3 = new RequisicaoEntrada(medicamento3, 20, DateTime.Now, funcionario2);
+            RequisicaoEntrada requisicaoEntrada4 = new RequisicaoEntrada(medicamento4, 20, DateTime.Now, funcionario2);
 
             repositorioRequisicaoEntrada.Inserir(requisicaoEntrada1);
             repositorioRequisicaoEntrada.Inserir(requisicaoEntrada2);
+            repositorioRequisicaoEntrada.Inserir(requisicaoEntrada3);
+            repositorioRequisicaoEntrada.Inserir(requisicaoEntrada4);
+
+            RequisicaoSaida requisicaoSaida1 = new RequisicaoSaida(medicamento3, 2, DateTime.Now, funcionario1, paciente1);
+            RequisicaoSaida requisicaoSaida2 = new RequisicaoSaida(medicamento3, 2, DateTime.Now.AddMonths(1), funcionario1, paciente2);
+            RequisicaoSaida requisicaoSaida3 = new RequisicaoSaida(medicamento3, 2, DateTime.Now.AddMonths(2), funcionario1, paciente3);
+
+            RequisicaoSaida requisicaoSaida4 = new RequisicaoSaida(medicamento4, 2, DateTime.Now, funcionario1, paciente1);
+            RequisicaoSaida requisicaoSaida5 = new RequisicaoSaida(medicamento4, 2, DateTime.Now.AddMonths(1), funcionario1, paciente2);
+
+            RequisicaoSaida requisicaoSaida6 = new RequisicaoSaida(medicamento1, 2, DateTime.Now.AddMonths(1), funcionario1, paciente4);
+
+            repositorioRequisicaoSaida.Inserir(requisicaoSaida1);
+            repositorioRequisicaoSaida.Inserir(requisicaoSaida2);
+            repositorioRequisicaoSaida.Inserir(requisicaoSaida3);
+
+            repositorioRequisicaoSaida.Inserir(requisicaoSaida4);
+            repositorioRequisicaoSaida.Inserir(requisicaoSaida5);
+
+            repositorioRequisicaoSaida.Inserir(requisicaoSaida6);
+
+            ArrayList listaTeste = repositorioMedicamento.SelecionarMedicamentosMaisRetirados();
         }
     }
 }

@@ -12,6 +12,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
         public int quantidade;
         public Fornecedor fornecedor;
 
+        public int quantidadeRequisicoesSaida;
+
         public Medicamento(string nome, string descricaco, string lote, DateTime validade, Fornecedor fornecedor)
         {
             this.nome = nome;
@@ -39,6 +41,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         public void RemoverQuantidade(int qtd)
         {
+            quantidadeRequisicoesSaida++;
             this.quantidade -= qtd;
         }
     }

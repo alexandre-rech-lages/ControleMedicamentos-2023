@@ -17,14 +17,30 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         public ArrayList SelecionarMedicamentosMaisRetirados()
         {
-            //fazer a ordenação...
-            return listaRegistros;
+            Medicamento[] medicamentos = new Medicamento[listaRegistros.Count];
+
+            int posicao = 0;
+            foreach (Medicamento m in listaRegistros)
+            {
+                medicamentos[posicao++] = m;
+            }
+
+            Array.Sort(medicamentos, new ComparadorMedicamentosRetirados());
+
+            return new ArrayList(medicamentos);
         }
 
-        internal ArrayList SelecionarMedicamentosEmFalta()
+        public ArrayList SelecionarMedicamentosEmFalta()
         {
-            //fazer o filtro...
-            return listaRegistros;
+            ArrayList listaMedicamentosEmFalta = new ArrayList();
+
+            foreach (Medicamento m in listaRegistros)
+            {
+                if (m.quantidade == 0)
+                    listaMedicamentosEmFalta.Add(m);
+            }
+
+            return listaMedicamentosEmFalta;
         }
     }
 

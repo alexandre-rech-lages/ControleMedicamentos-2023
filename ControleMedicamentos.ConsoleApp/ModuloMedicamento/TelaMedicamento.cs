@@ -44,14 +44,14 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         protected override void MostrarTabela(ArrayList registros)
         {
-            Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | {3, -20}", "Id", "Nome", "Fornecedor", "Quantidade");
+            Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}", "Id", "Nome", "Fornecedor", "Quantidade", "Qtd Retiradas");
 
-            Console.WriteLine("--------------------------------------------------------------------");
+            Console.WriteLine("---------------------------------------------------------------------------------------");
 
             foreach (Medicamento medicamento in registros)
             {
-                Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | {3, -20}",
-                    medicamento.id, medicamento.nome, medicamento.fornecedor.nome, medicamento.quantidade);
+                Console.WriteLine("{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20}",
+                    medicamento.id, medicamento.nome, medicamento.fornecedor.nome, medicamento.quantidade, medicamento.quantidadeRequisicoesSaida);
             }
         }
 
