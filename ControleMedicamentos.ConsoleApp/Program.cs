@@ -10,6 +10,7 @@ namespace ControleMedicamentos.ConsoleApp
 {
     internal class Program
     {
+    
         static void Main(string[] args)
         {
             RepositorioFornecedor repositorioFornecedor = new RepositorioFornecedor(new ArrayList());
@@ -244,25 +245,25 @@ namespace ControleMedicamentos.ConsoleApp
             repositorioRequisicaoEntrada.Inserir(requisicaoEntrada3);
             repositorioRequisicaoEntrada.Inserir(requisicaoEntrada4);
 
-            RequisicaoSaida requisicaoSaida1 = new RequisicaoSaida(medicamento3, 2, DateTime.Now, funcionario1, paciente1);
-            RequisicaoSaida requisicaoSaida2 = new RequisicaoSaida(medicamento3, 2, DateTime.Now.AddMonths(1), funcionario1, paciente2);
-            RequisicaoSaida requisicaoSaida3 = new RequisicaoSaida(medicamento3, 2, DateTime.Now.AddMonths(2), funcionario1, paciente3);
+            //RequisicaoSaida requisicaoSaida1 = new RequisicaoSaida(medicamento3, 2, DateTime.Now, funcionario1, paciente1);
+            //RequisicaoSaida requisicaoSaida2 = new RequisicaoSaida(medicamento3, 2, DateTime.Now.AddMonths(1), funcionario1, paciente2);
+            //RequisicaoSaida requisicaoSaida3 = new RequisicaoSaida(medicamento3, 2, DateTime.Now.AddMonths(2), funcionario1, paciente3);
 
-            RequisicaoSaida requisicaoSaida4 = new RequisicaoSaida(medicamento4, 2, DateTime.Now, funcionario1, paciente1);
-            RequisicaoSaida requisicaoSaida5 = new RequisicaoSaida(medicamento4, 2, DateTime.Now.AddMonths(1), funcionario1, paciente2);
+            //RequisicaoSaida requisicaoSaida4 = new RequisicaoSaida(medicamento4, 2, DateTime.Now, funcionario1, paciente1);
+            //RequisicaoSaida requisicaoSaida5 = new RequisicaoSaida(medicamento4, 2, DateTime.Now.AddMonths(1), funcionario1, paciente2);
 
-            RequisicaoSaida requisicaoSaida6 = new RequisicaoSaida(medicamento1, 2, DateTime.Now.AddMonths(1), funcionario1, paciente4);
+            //RequisicaoSaida requisicaoSaida6 = new RequisicaoSaida(medicamento1, 2, DateTime.Now.AddMonths(1), funcionario1, paciente4);
 
-            repositorioRequisicaoSaida.Inserir(requisicaoSaida1);
-            repositorioRequisicaoSaida.Inserir(requisicaoSaida2);
-            repositorioRequisicaoSaida.Inserir(requisicaoSaida3);
+            //repositorioRequisicaoSaida.Inserir(requisicaoSaida1);
+            //repositorioRequisicaoSaida.Inserir(requisicaoSaida2);
+            //repositorioRequisicaoSaida.Inserir(requisicaoSaida3);
 
-            repositorioRequisicaoSaida.Inserir(requisicaoSaida4);
-            repositorioRequisicaoSaida.Inserir(requisicaoSaida5);
+            //repositorioRequisicaoSaida.Inserir(requisicaoSaida4);
+            //repositorioRequisicaoSaida.Inserir(requisicaoSaida5);
 
-            repositorioRequisicaoSaida.Inserir(requisicaoSaida6);
+            //repositorioRequisicaoSaida.Inserir(requisicaoSaida6);
 
-            ArrayList listaTeste = repositorioMedicamento.SelecionarMedicamentosMaisRetirados();
+            //ArrayList listaTeste = repositorioMedicamento.SelecionarMedicamentosMaisRetirados();
         }
     }
 }

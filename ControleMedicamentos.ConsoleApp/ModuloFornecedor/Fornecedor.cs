@@ -1,4 +1,5 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloFornecedor
 {
@@ -28,6 +29,25 @@ namespace ControleMedicamentos.ConsoleApp.ModuloFornecedor
             this.email = fornecedorAtualizado.email;
             this.cidade = fornecedorAtualizado.cidade;
             this.estado = fornecedorAtualizado.estado;
+        }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(nome.Trim()))
+                erros.Add("O campo \"nome\" é obrigatório");
+
+            if (nome.Length <= 3)
+                erros.Add("O campo \"nome\" precisa ter mais que 3 letras");
+
+            if (string.IsNullOrEmpty(telefone.Trim()))
+                erros.Add("O campo \"telefone\" é obrigatório");
+
+            if (string.IsNullOrEmpty(email.Trim()))
+                erros.Add("O campo \"email\" é obrigatório");            
+
+            return erros;
         }
     }
 }

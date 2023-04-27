@@ -1,6 +1,7 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
 using ControleMedicamentos.ConsoleApp.ModuloFornecedor;
 using System.Collections;
+using System.Globalization;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 {
@@ -20,6 +21,19 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
             nomeEntidade = "Medicamento";
             sufixo = "s";
+        }
+
+        public override void InserirNovoRegistro()
+        {
+            bool temRegistros = repositorioFornecedor.TemRegistros();
+
+            if (temRegistros == false)
+            {
+                MostrarMensagem("Cadastre ao menos um fornecedor para cadastrar medicamentos", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            base.InserirNovoRegistro();
         }
 
         public override string ApresentarMenu()
@@ -69,7 +83,33 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             string lote = Console.ReadLine();
 
             Console.Write("Digite a data de validade: ");
-            DateTime dataValidade = DateTime.Parse(Console.ReadLine());
+
+            DateTime dataValidade = DateTime.MinValue;
+
+            bool dataInvalida;
+            
+            do
+            {
+                dataInvalida = false;
+
+                try
+                {                    
+                    dataValidade = Convert.ToDateTime(Console.ReadLine());                    
+                }
+                catch (FormatException)
+                {
+                    dataInvalida = true;
+                    MostrarMensagem("Formato da data está inválido. Ex: 12/12/2000",
+                        ConsoleColor.DarkYellow);
+                }
+                catch (ArgumentNullException)
+                {
+                    dataInvalida = true;
+                    MostrarMensagem("Informe uma data. Ex: 12/12/2000",
+                        ConsoleColor.DarkYellow);
+                }
+
+            } while (dataInvalida);
 
             return new Medicamento(nome, descricao, lote, dataValidade, fornecedor);
         }
@@ -106,12 +146,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         private Fornecedor ObterFornecedor()
         {
-            telaFornecedor.VisualizarRegistros(false);
+            telaFornecedor.VisualizarRegistros(false);            
 
-            Console.Write("\nDigite o id do Forncedor: ");
-            int idFornecedor = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId(repositorioFornecedor);
 
-            Fornecedor fornecedor = repositorioFornecedor.SelecionarPorId(idFornecedor);
+            Fornecedor fornecedor = repositorioFornecedor.SelecionarPorId(id);
 
             Console.WriteLine();
 

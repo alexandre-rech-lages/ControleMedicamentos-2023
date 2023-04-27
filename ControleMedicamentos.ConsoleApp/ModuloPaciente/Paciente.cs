@@ -1,4 +1,6 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+using ControleMedicamentos.ConsoleApp.ModuloFornecedor;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloPaciente
 {
@@ -19,6 +21,19 @@ namespace ControleMedicamentos.ConsoleApp.ModuloPaciente
 
             this.nome = pacienteAtualizado.nome;
             this.cartaoSUS = pacienteAtualizado.cartaoSUS;
+        }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(nome.Trim()))
+                erros.Add("O campo \"nome\" é obrigatório");
+
+            if (string.IsNullOrEmpty(cartaoSUS.Trim()))
+                erros.Add("O campo \"cartaoSUS\" é obrigatório");
+
+            return erros;
         }
     }
 }

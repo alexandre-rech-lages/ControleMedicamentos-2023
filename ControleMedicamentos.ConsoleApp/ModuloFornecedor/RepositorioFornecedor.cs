@@ -13,6 +13,6 @@ namespace ControleMedicamentos.ConsoleApp.ModuloFornecedor
         public override Fornecedor SelecionarPorId(int id)
         {
             return (Fornecedor)base.SelecionarPorId(id);
-        }
+        }        
     }
 }

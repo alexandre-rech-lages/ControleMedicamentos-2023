@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida.RepositorioRequisicaoSaida">
+    <Position X="2.75" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ModuloRequisicaoSaida\RepositorioRequisicaoSaida.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida.RequisicaoSaida">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAQCAAgEAg=</HashCode>
+      <FileName>ModuloRequisicaoSaida\RequisicaoSaida.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida.TelaRequisicaoSaida">
+    <Position X="6" Y="2.25" Width="3" />
+    <AssociationLine Name="repositorioRequisicaoSaida" Type="ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida.RepositorioRequisicaoSaida">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.963" Y="0.133" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>wAAAACAgAEBAAAAAABCAAAAQAAAAAAgAAAAAhEBAAAA=</HashCode>
+      <FileName>ModuloRequisicaoSaida\TelaRequisicaoSaida.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="repositorioFuncionario" />
+      <Field Name="repositorioMedicamento" />
+      <Field Name="repositorioPaciente" />
+      <Field Name="repositorioRequisicaoSaida" />
+      <Field Name="telaFuncionario" />
+      <Field Name="telaMedicamento" />
+      <Field Name="telaPaciente" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloFuncionario.RepositorioFuncionario" Collapsed="true">
+    <Position X="3.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ModuloFuncionario\RepositorioFuncionario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloMedicamento.RepositorioMedicamento" Collapsed="true">
+    <Position X="11.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAEgAAA=</HashCode>
+      <FileName>ModuloMedicamento\RepositorioMedicamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloPaciente.RepositorioPaciente" Collapsed="true">
+    <Position X="3.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>ModuloPaciente\RepositorioPaciente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloFuncionario.TelaFuncionario" Collapsed="true">
+    <Position X="9" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuloFuncionario\TelaFuncionario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloMedicamento.TelaMedicamento" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QQAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAIAgQAQBAA=</HashCode>
+      <FileName>ModuloMedicamento\TelaMedicamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloPaciente.TelaPaciente" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModuloPaciente\TelaPaciente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

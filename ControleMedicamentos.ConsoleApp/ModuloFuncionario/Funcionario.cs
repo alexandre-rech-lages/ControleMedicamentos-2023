@@ -1,4 +1,5 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloFuncionario
 {
@@ -22,6 +23,22 @@ namespace ControleMedicamentos.ConsoleApp.ModuloFuncionario
             this.nome = funcionarioAtualizado.nome;
             this.login = funcionarioAtualizado.login;
             this.senha = funcionarioAtualizado.senha;
+        }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(nome.Trim()))
+                erros.Add("O campo \"nome\" é obrigatório");
+                      
+            if (string.IsNullOrEmpty(login.Trim()))
+                erros.Add("O campo \"login\" é obrigatório");
+
+            if (string.IsNullOrEmpty(senha.Trim()))
+                erros.Add("O campo \"senha\" é obrigatório");
+
+            return erros;
         }
     }
 

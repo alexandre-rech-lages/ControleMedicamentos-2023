@@ -2,6 +2,7 @@
 using ControleMedicamentos.ConsoleApp.ModuloFuncionario;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleMedicamentos.ConsoleApp.ModuloPaciente;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
 {
@@ -21,9 +22,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
             this.data = data;
             this.funcionario = funcionario;
             this.paciente = paciente;
-            this.quantidade = quantidade;
-            
-            this.medicamento.RemoverQuantidade(quantidade);
+            this.quantidade = quantidade;                                    
         }
 
         public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
@@ -40,6 +39,36 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         public void DesfazerRegistroSaida()
         {
             medicamento.AdicionarQuantidade(quantidade);
+        }
+
+        public void RegistrarSaida()
+        {
+            this.medicamento.RemoverQuantidade(quantidade);
+        }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (medicamento == null)
+                erros.Add("O campo \"medicamento\" é obrigatório");
+
+            if (funcionario == null)
+                erros.Add("O campo \"funcionário\" é obrigatório");
+
+            if (paciente == null)
+                erros.Add("O campo \"paciente\" é obrigatório");
+
+            if (data < DateTime.Now.Date)
+                erros.Add("O campo \"data\" deve ser maior que a data atual");
+
+            if (quantidade < 0)
+                erros.Add("O campo \"quantidade\" deve ser maior que 0");
+
+            if (medicamento != null && quantidade > medicamento.quantidade)
+                erros.Add("O campo \"quantidade requisitada\" excedeu a quantidade em estoque deste medicamento");
+
+            return erros;
         }
     }
 }

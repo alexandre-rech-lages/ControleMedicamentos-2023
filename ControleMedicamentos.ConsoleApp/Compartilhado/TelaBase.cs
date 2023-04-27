@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Microsoft.Win32;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.Compartilhado
 {
@@ -55,11 +56,23 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             EntidadeBase registro = ObterRegistro();
 
+            if (TemErrosDeValidacao(registro))
+            {
+                InserirNovoRegistro(); //chamada recursiva
+
+                return;
+            }
+
             repositorioBase.Inserir(registro);
 
             MostrarMensagem("Registro inserido com sucesso!", ConsoleColor.Green);
         }
 
+        /// <summary>
+        /// Método reponsável por visulizar registros das telas
+        /// </summary>
+        /// <param name="mostrarCabecalho"></param>
+        /// <returns>Caso não tenha registros, retorna falso</returns>
         public virtual void VisualizarRegistros(bool mostrarCabecalho)
         {
             if (mostrarCabecalho)
@@ -70,7 +83,6 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             if (registros.Count == 0)
             {
                 MostrarMensagem("Nenhum registro cadastrado", ConsoleColor.DarkYellow);
-                return;
             }
 
             MostrarTabela(registros);
@@ -84,10 +96,16 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do registro: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId();
 
             EntidadeBase registroAtualizado = ObterRegistro();
+
+            if (TemErrosDeValidacao(registroAtualizado))
+            {
+                EditarRegistro();
+
+                return;
+            }
 
             repositorioBase.Editar(id, registroAtualizado);
 
@@ -102,12 +120,84 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do registro: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId();
 
             repositorioBase.Excluir(id);
 
             MostrarMensagem("Registro excluído com sucesso!", ConsoleColor.Green);
+        }
+
+        public virtual int EncontrarId()
+        {
+            int idSelecionado=0;
+            bool idInvalido;
+
+            do
+            {
+                Console.Write("\nDigite o Id do registro: ");
+                try
+                {
+                    idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+                    idInvalido = repositorioBase.SelecionarPorId(idSelecionado) == null;
+                }
+                catch (FormatException)
+                {
+                    idInvalido = true;
+                }
+
+                if (idInvalido)
+                    MostrarMensagem("Id inválido, tente novamente", ConsoleColor.Red);
+
+            } while (idInvalido);
+
+            return idSelecionado;
+        }
+
+        public virtual int EncontrarId(RepositorioBase repositorio)
+        {
+            int idSelecionado;
+            bool idInvalido;
+
+            do
+            {
+                Console.Write("\nDigite o Id do registro: ");
+
+                idSelecionado = Convert.ToInt32(Console.ReadLine());
+
+                idInvalido = repositorio.SelecionarPorId(idSelecionado) == null;
+
+                if (idInvalido)
+                    MostrarMensagem("Id inválido, tente novamente", ConsoleColor.Red);
+
+            } while (idInvalido);
+
+            return idSelecionado;
+        }
+
+
+        protected bool TemErrosDeValidacao(EntidadeBase registro)
+        {
+            bool temErros = false;
+
+            ArrayList erros = registro.Validar();
+
+            if (erros.Count > 0)
+            {
+                temErros = true;
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                foreach (string erro in erros)
+                {
+                    Console.WriteLine(erro);
+                }
+
+                Console.ResetColor();
+
+                Console.ReadLine();
+            }
+
+            return temErros;
         }
 
         protected abstract EntidadeBase ObterRegistro();

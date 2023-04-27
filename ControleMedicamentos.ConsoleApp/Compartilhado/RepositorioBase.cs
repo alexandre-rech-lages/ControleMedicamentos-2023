@@ -51,5 +51,9 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             return listaRegistros;
         }
 
+        public bool TemRegistros()
+        {
+            return listaRegistros.Count > 0;
+        }
     }
 }

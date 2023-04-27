@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloFornecedor.Fornecedor">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAACAAAAAAAAIAgAAAAAAAAAAAAgAAAAAAAAAAgAAA=</HashCode>
+      <FileName>ModuloFornecedor\Fornecedor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloMedicamento.Medicamento">
+    <Position X="8" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAAAAAAgEAAAAAAAAAAAAAAAAIAIAAAAAAAAAAgFgA=</HashCode>
+      <FileName>ModuloMedicamento\Medicamento.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="fornecedor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloFuncionario.Funcionario">
+    <Position X="3.5" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAgEAA=</HashCode>
+      <FileName>ModuloFuncionario\Funcionario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloPaciente.Paciente">
+    <Position X="12.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAgAAA=</HashCode>
+      <FileName>ModuloPaciente\Paciente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada.RequisicaoEntrada">
+    <Position X="3.5" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAQCIAgEAA=</HashCode>
+      <FileName>ModuloRequisicaoEntrada\RequisicaoEntrada.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="medicamento" />
+      <Field Name="funcionario" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida.RequisicaoSaida">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <AssociationLine Name="medicamento" Type="ControleMedicamentos.ConsoleApp.ModuloMedicamento.Medicamento" FixedToPoint="true">
+      <Path>
+        <Point X="8.75" Y="2.761" />
+        <Point X="8.75" Y="4" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAQCAAgEAg=</HashCode>
+      <FileName>ModuloRequisicaoSaida\RequisicaoSaida.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="medicamento" />
+      <Field Name="funcionario" />
+      <Field Name="paciente" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

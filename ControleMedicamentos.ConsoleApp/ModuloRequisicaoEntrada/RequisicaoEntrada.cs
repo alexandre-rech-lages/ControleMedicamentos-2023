@@ -1,6 +1,7 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
 using ControleMedicamentos.ConsoleApp.ModuloFuncionario;
 using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 {
@@ -34,6 +35,25 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
         public void DesfazerRegistroEntrada()
         {
             medicamento.RemoverQuantidade(quantidade);
+        }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (medicamento == null)
+                erros.Add("O campo \"medicamento\" é obrigatório");
+
+            if (funcionario == null)
+                erros.Add("O campo \"funcionário\" é obrigatório");
+
+            if (data < DateTime.Now.Date)
+                erros.Add("O campo \"data\" deve ser maior que a data atual");
+
+            if (quantidade < 0 )
+                erros.Add("O campo \"quantidade\" deve ser maior que 0");
+
+            return erros;
         }
     }
 

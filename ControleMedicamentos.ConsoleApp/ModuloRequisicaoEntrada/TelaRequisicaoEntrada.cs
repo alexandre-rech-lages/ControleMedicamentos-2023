@@ -28,25 +28,67 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
             this.telaMedicamento = telaMedicamento;
 
             nomeEntidade = "Requisições de Entrada";
-        }        
+        }
 
+        public override void InserirNovoRegistro()
+        {
+            bool temFuncionarios = repositorioFuncionario.TemRegistros();
+
+            if (temFuncionarios == false)
+            {
+                MostrarMensagem("Cadastre ao menos um funcionário para cadastrar requisições de entrada", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            bool temMedicamentos = repositorioMedicamento.TemRegistros();
+
+            if (temMedicamentos == false)
+            {
+                MostrarMensagem("Cadastre ao menos um medicamento para cadastrar requisições de entrada", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            base.InserirNovoRegistro();
+        }
 
         public override void EditarRegistro()
         {
+            bool temFuncionarios = repositorioFuncionario.TemRegistros();
+
+            if (temFuncionarios == false)
+            {
+                MostrarMensagem("Cadastre ao menos um funcionário para cadastrar requisições de entrada", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            bool temMedicamentos = repositorioMedicamento.TemRegistros();
+
+            if (temMedicamentos == false)
+            {
+                MostrarMensagem("Cadastre ao menos um medicamento para cadastrar requisições de entrada", ConsoleColor.DarkYellow);
+                return;
+            }
+
             MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Editando um registro já cadastrado...");
 
             VisualizarRegistros(false);
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do registro: ");
-            int id = Convert.ToInt32(Console.ReadLine());
-            
+            int id = EncontrarId();
+
             RequisicaoEntrada requisicaoEntrada = repositorioRequisicaoEntrada.SelecionarPorId(id);            
 
             EntidadeBase registroAtualizado = ObterRegistro();
 
             requisicaoEntrada.DesfazerRegistroEntrada();
+
+            if (TemErrosDeValidacao(registroAtualizado))
+            {
+                EditarRegistro();
+
+                return;
+            }
 
             repositorioBase.Editar(id, registroAtualizado);
 
@@ -61,8 +103,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do registro: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId();
 
             RequisicaoEntrada requisicaoEntrada = repositorioRequisicaoEntrada.SelecionarPorId(id);
 
@@ -107,15 +148,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
         private Funcionario ObterFuncionario()
         {
-            //Visulizar a lista de funcionarios
             telaFuncionario.VisualizarRegistros(false);
 
-            //Selecionar um funcionario por id
-            Console.Write("\nDigite o id do Funcionário: ");
-            int idFuncionario = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId(repositorioFuncionario);
 
-            //Pegar o objeto no repositorio de Funcionario a partir do id selecionado
-            Funcionario funcionario = repositorioFuncionario.SelecionarPorId(idFuncionario);
+            Funcionario funcionario = repositorioFuncionario.SelecionarPorId(id);
 
             Console.WriteLine();
 
@@ -124,15 +161,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
         private Medicamento ObterMedicamento()
         {
-            //Visulizar a lista de medicamentos 
             telaMedicamento.VisualizarRegistros(false);
 
-            //Selecionar um medicamento por id
-            Console.Write("\nDigite o id do Medicamento: ");
-            int idMedicamento = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId(repositorioMedicamento);
 
-            //Pegar o objeto no repositorio de Medicamento a partir do id selecionado
-            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(idMedicamento);
+            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(id);
 
             Console.WriteLine();
 

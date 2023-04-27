@@ -1,5 +1,6 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
 using ControleMedicamentos.ConsoleApp.ModuloFornecedor;
+using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 {
@@ -25,7 +26,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         public override void AtualizarInformacoes(EntidadeBase registroAtualizado)
         {
-            Medicamento medicamentoAtualizado = (Medicamento) registroAtualizado;
+            Medicamento medicamentoAtualizado = (Medicamento)registroAtualizado;
 
             this.nome = medicamentoAtualizado.nome;
             this.descricaco = medicamentoAtualizado.descricaco;
@@ -44,5 +45,28 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             quantidadeRequisicoesSaida++;
             this.quantidade -= qtd;
         }
+
+        public override ArrayList Validar()
+        {
+            ArrayList erros = new ArrayList();
+
+            if (string.IsNullOrEmpty(nome.Trim()))
+                erros.Add("O campo \"nome\" é obrigatório");
+
+            DateTime hoje = DateTime.Now.Date;
+
+            if (validade < hoje)
+                erros.Add("O campo \"validade\" não pode ser menor que a data atual");
+
+            if (fornecedor == null)
+                erros.Add("O campo \"fornecedor\" é obrigatório");
+
+            if (quantidade < 0)
+                erros.Add("O campo \"quantidade\" não pode ser menor que 0");
+
+            return erros;
+        }
+
+      
     }
 }

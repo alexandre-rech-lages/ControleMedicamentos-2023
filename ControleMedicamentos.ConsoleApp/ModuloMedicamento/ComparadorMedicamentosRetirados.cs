@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
-{
+{    
     public class ComparadorMedicamentosRetirados : IComparer
     {
         public int Compare(object x, object y)

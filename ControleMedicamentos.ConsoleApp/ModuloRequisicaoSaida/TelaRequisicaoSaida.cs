@@ -20,8 +20,8 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         private TelaMedicamento telaMedicamento;
 
         public TelaRequisicaoSaida(RepositorioRequisicaoSaida repositorioRequisicaoSaida,
-            RepositorioPaciente repositorioPaciente, TelaPaciente telaPaciente, 
-            RepositorioFuncionario repositorioFuncionario, TelaFuncionario telaFuncionario, 
+            RepositorioPaciente repositorioPaciente, TelaPaciente telaPaciente,
+            RepositorioFuncionario repositorioFuncionario, TelaFuncionario telaFuncionario,
             RepositorioMedicamento repositorioMedicamento, TelaMedicamento telaMedicamento)
         {
             this.repositorioBase = repositorioRequisicaoSaida;
@@ -35,22 +35,94 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
             nomeEntidade = "Requisição de Saída";
         }
 
+        public override void InserirNovoRegistro()
+        {
+            MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Inserindo um novo registro...");
+
+            bool temFuncionarios = repositorioFuncionario.TemRegistros();
+
+            if (temFuncionarios == false)
+            {
+                MostrarMensagem("Cadastre ao menos um funcionário para cadastrar requisições de saída", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            bool temMedicamentos = repositorioMedicamento.TemRegistros();
+
+            if (temMedicamentos == false)
+            {
+                MostrarMensagem("Cadastre ao menos um medicamento para cadastrar requisições de saída", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            bool temPacientes = repositorioPaciente.TemRegistros();
+
+            if (temPacientes == false)
+            {
+                MostrarMensagem("Cadastre ao menos um paciente para cadastrar requisições de saída", ConsoleColor.DarkYellow);
+                return;
+            }
+            
+            RequisicaoSaida registro = (RequisicaoSaida)ObterRegistro();
+
+            if (TemErrosDeValidacao(registro))
+            {
+                return;
+            }
+
+            registro.RegistrarSaida();
+
+            repositorioBase.Inserir(registro);
+
+            MostrarMensagem("Registro inserido com sucesso!", ConsoleColor.Green);
+        }
+
         public override void EditarRegistro()
         {
             MostrarCabecalho($"Cadastro de {nomeEntidade}{sufixo}", "Editando um registro já cadastrado...");
+
+            bool temFuncionarios = repositorioFuncionario.TemRegistros();
+
+            if (temFuncionarios == false)
+            {
+                MostrarMensagem("Cadastre ao menos um funcionário para cadastrar requisições de saída", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            bool temMedicamentos = repositorioMedicamento.TemRegistros();
+
+            if (temMedicamentos == false)
+            {
+                MostrarMensagem("Cadastre ao menos um medicamento para cadastrar requisições de saída", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            bool temPacientes = repositorioPaciente.TemRegistros();
+
+            if (temPacientes == false)
+            {
+                MostrarMensagem("Cadastre ao menos um paciente para cadastrar requisições de saída", ConsoleColor.DarkYellow);
+                return;
+            }
 
             VisualizarRegistros(false);
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do registro: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId();
 
             RequisicaoSaida requisicaoSaida = repositorioRequisicaoSaida.SelecionarPorId(id);
 
-            EntidadeBase registroAtualizado = ObterRegistro();
+            RequisicaoSaida registroAtualizado = (RequisicaoSaida)ObterRegistro();
 
             requisicaoSaida.DesfazerRegistroSaida();
+
+            if (TemErrosDeValidacao(registroAtualizado))
+            {
+                return;
+            }
+
+            registroAtualizado.RegistrarSaida();
 
             repositorioBase.Editar(id, registroAtualizado);
 
@@ -65,8 +137,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
 
             Console.WriteLine();
 
-            Console.Write("Digite o id do registro: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId();
 
             RequisicaoSaida requisicaoEntrada = repositorioRequisicaoSaida.SelecionarPorId(id);
 
@@ -118,12 +189,9 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         {
             telaPaciente.VisualizarRegistros(false);
 
-            //Selecionar um paciente por id
-            Console.Write("\nDigite o id do Funcionário: ");
-            int idPaciente = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId(repositorioPaciente);
 
-            //Pegar o objeto no repositorio de Paciente a partir do id selecionado
-            Paciente paciente = repositorioPaciente.SelecionarPorId(idPaciente);
+            Paciente paciente = repositorioPaciente.SelecionarPorId(id);
 
             Console.WriteLine();
 
@@ -134,12 +202,9 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         {
             telaFuncionario.VisualizarRegistros(false);
 
-            //Selecionar um funcionario por id
-            Console.Write("\nDigite o id do Funcionário: ");
-            int idFuncionario = Convert.ToInt32(Console.ReadLine());
-
-            //Pegar o objeto no repositorio de Funcionario a partir do id selecionado
-            Funcionario funcionario = repositorioFuncionario.SelecionarPorId(idFuncionario);
+            int id = EncontrarId(repositorioFuncionario);
+            
+            Funcionario funcionario = repositorioFuncionario.SelecionarPorId(id);
 
             Console.WriteLine();
 
@@ -148,15 +213,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
 
         private Medicamento ObterMedicamento()
         {
-            //Visulizar a lista de medicamentos 
             telaMedicamento.VisualizarRegistros(false);
 
-            //Selecionar um medicamento por id
-            Console.Write("\nDigite o id do Medicamento: ");
-            int idMedicamento = Convert.ToInt32(Console.ReadLine());
+            int id = EncontrarId(repositorioMedicamento);
 
-            //Pegar o objeto no repositorio de Medicamento a partir do id selecionado
-            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(idMedicamento);
+            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(id);
 
             Console.WriteLine();
 
