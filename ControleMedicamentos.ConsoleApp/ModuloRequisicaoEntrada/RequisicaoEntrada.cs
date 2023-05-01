@@ -10,7 +10,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
         public Medicamento medicamento;
         public int quantidade;
         public DateTime data;
-        public Funcionario funcionario;
+        public Funcionario funcionario;     
 
         public RequisicaoEntrada(Medicamento medicamento, int quantidade, DateTime data, Funcionario funcionario)
         {

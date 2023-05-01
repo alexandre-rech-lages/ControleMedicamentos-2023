@@ -17,6 +17,15 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         public ArrayList SelecionarMedicamentosMaisRetirados()
         {
+            Medicamento[] medicamentos = ConverterParaMedicamentos(listaRegistros);
+
+            Array.Sort(medicamentos, new ComparadorMedicamentosRetirados());
+
+            return new ArrayList(medicamentos);
+        }
+
+        private Medicamento[] ConverterParaMedicamentos(ArrayList listaRegistros)
+        {
             Medicamento[] medicamentos = new Medicamento[listaRegistros.Count];
 
             int posicao = 0;
@@ -25,9 +34,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
                 medicamentos[posicao++] = m;
             }
 
-            Array.Sort(medicamentos, new ComparadorMedicamentosRetirados());
-
-            return new ArrayList(medicamentos);
+            return medicamentos;
         }
 
         public ArrayList SelecionarMedicamentosEmFalta()

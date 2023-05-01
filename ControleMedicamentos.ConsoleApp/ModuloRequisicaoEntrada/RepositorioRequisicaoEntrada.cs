@@ -1,4 +1,5 @@
 ﻿using ControleMedicamentos.ConsoleApp.Compartilhado;
+using ControleMedicamentos.ConsoleApp.ModuloMedicamento;
 using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
@@ -8,7 +9,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
         public RepositorioRequisicaoEntrada(ArrayList listaRequisicaoEntrada)
         {
             this.listaRegistros = listaRequisicaoEntrada;
-        }
+        }      
 
         public override RequisicaoEntrada SelecionarPorId(int id)
         {

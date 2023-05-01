@@ -7,12 +7,12 @@ using ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida;
 using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp
-{
+{    
     internal class Program
     {
     
         static void Main(string[] args)
-        {
+        {     
             RepositorioFornecedor repositorioFornecedor = new RepositorioFornecedor(new ArrayList());
             RepositorioPaciente repositorioPaciente = new RepositorioPaciente(new ArrayList());
             RepositorioFuncionario repositorioFuncionario = new RepositorioFuncionario(new ArrayList());

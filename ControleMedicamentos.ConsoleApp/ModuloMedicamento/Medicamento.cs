@@ -3,7 +3,7 @@ using ControleMedicamentos.ConsoleApp.ModuloFornecedor;
 using System.Collections;
 
 namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
-{
+{    
     public class Medicamento : EntidadeBase
     {
         public string nome;
