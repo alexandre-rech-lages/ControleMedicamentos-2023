@@ -75,9 +75,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
             Console.WriteLine();
 
-            int id = EncontrarId();
-
-            RequisicaoEntrada requisicaoEntrada = repositorioRequisicaoEntrada.SelecionarPorId(id);            
+            RequisicaoEntrada requisicaoEntrada = (RequisicaoEntrada)EncontrarRegistro("Digite o id do registro: ");
 
             EntidadeBase registroAtualizado = ObterRegistro();
 
@@ -90,7 +88,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
                 return;
             }
 
-            repositorioBase.Editar(id, registroAtualizado);
+            repositorioBase.Editar(requisicaoEntrada.id, registroAtualizado);
 
             MostrarMensagem("Registro editado com sucesso!", ConsoleColor.Green);
         }
@@ -103,13 +101,11 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
 
             Console.WriteLine();
 
-            int id = EncontrarId();
-
-            RequisicaoEntrada requisicaoEntrada = repositorioRequisicaoEntrada.SelecionarPorId(id);
+            RequisicaoEntrada requisicaoEntrada = (RequisicaoEntrada)EncontrarRegistro("Digite o id do registro: ");
 
             requisicaoEntrada.DesfazerRegistroEntrada();
 
-            repositorioBase.Excluir(id);
+            repositorioBase.Excluir(requisicaoEntrada);
 
             MostrarMensagem("Registro excluído com sucesso!", ConsoleColor.Green);
         }
@@ -150,9 +146,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
         {
             telaFuncionario.VisualizarRegistros(false);
 
-            int id = EncontrarId(repositorioFuncionario);
-
-            Funcionario funcionario = repositorioFuncionario.SelecionarPorId(id);
+            Funcionario funcionario = (Funcionario)telaFuncionario.EncontrarRegistro("Digite o id do funcionário: ");
 
             Console.WriteLine();
 
@@ -163,9 +157,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoEntrada
         {
             telaMedicamento.VisualizarRegistros(false);
 
-            int id = EncontrarId(repositorioMedicamento);
-
-            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(id);
+            Medicamento medicamento = (Medicamento)telaMedicamento.EncontrarRegistro("Digite o id do medicamento: ");
 
             Console.WriteLine();
 

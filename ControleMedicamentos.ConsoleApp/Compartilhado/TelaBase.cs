@@ -96,7 +96,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             Console.WriteLine();
 
-            int id = EncontrarId();
+            EntidadeBase registro = EncontrarRegistro("Digite o id do registro: ");
 
             EntidadeBase registroAtualizado = ObterRegistro();
 
@@ -107,7 +107,7 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
                 return;
             }
 
-            repositorioBase.Editar(id, registroAtualizado);
+            repositorioBase.Editar(registro, registroAtualizado);
 
             MostrarMensagem("Registro editado com sucesso!", ConsoleColor.Green);
         }
@@ -120,26 +120,30 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             Console.WriteLine();
 
-            int id = EncontrarId();
+            EntidadeBase registro = EncontrarRegistro("Digite o id do registro: ");
 
-            repositorioBase.Excluir(id);
+            repositorioBase.Excluir(registro);
 
             MostrarMensagem("Registro excluído com sucesso!", ConsoleColor.Green);
-        }
+        }      
 
-        public virtual int EncontrarId()
-        {
-            int idSelecionado=0;
+        public virtual EntidadeBase EncontrarRegistro(string textoCampo)
+        {            
             bool idInvalido;
+            EntidadeBase registroSelecionado = null;
 
             do
             {
-                Console.Write("\nDigite o Id do registro: ");
+                idInvalido = false;
+                Console.Write("\n" + textoCampo);
                 try
                 {
-                    idSelecionado = Convert.ToInt32(Console.ReadLine());
+                    int id = Convert.ToInt32(Console.ReadLine());
 
-                    idInvalido = repositorioBase.SelecionarPorId(idSelecionado) == null;
+                    registroSelecionado = repositorioBase.SelecionarPorId(id);
+
+                    if (registroSelecionado == null)
+                        idInvalido = true;
                 }
                 catch (FormatException)
                 {
@@ -151,30 +155,8 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
 
             } while (idInvalido);
 
-            return idSelecionado;
+            return registroSelecionado;
         }
-
-        public virtual int EncontrarId(RepositorioBase repositorio)
-        {
-            int idSelecionado;
-            bool idInvalido;
-
-            do
-            {
-                Console.Write("\nDigite o Id do registro: ");
-
-                idSelecionado = Convert.ToInt32(Console.ReadLine());
-
-                idInvalido = repositorio.SelecionarPorId(idSelecionado) == null;
-
-                if (idInvalido)
-                    MostrarMensagem("Id inválido, tente novamente", ConsoleColor.Red);
-
-            } while (idInvalido);
-
-            return idSelecionado;
-        }
-
 
         protected bool TemErrosDeValidacao(EntidadeBase registro)
         {

@@ -23,10 +23,20 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             registroSelecionado.AtualizarInformacoes(registroAtualizado);
         }
 
+        public virtual void Editar(EntidadeBase registroSelecionado, EntidadeBase registroAtualizado)
+        {
+            registroSelecionado.AtualizarInformacoes(registroAtualizado);
+        }
+
         public virtual void Excluir(int id)
         {
             EntidadeBase registroSelecionado = SelecionarPorId(id);
 
+            listaRegistros.Remove(registroSelecionado);
+        }
+
+        public virtual void Excluir(EntidadeBase registroSelecionado)
+        {
             listaRegistros.Remove(registroSelecionado);
         }
 

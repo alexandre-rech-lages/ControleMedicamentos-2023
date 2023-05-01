@@ -62,7 +62,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
                 MostrarMensagem("Cadastre ao menos um paciente para cadastrar requisições de saída", ConsoleColor.DarkYellow);
                 return;
             }
-            
+
             RequisicaoSaida registro = (RequisicaoSaida)ObterRegistro();
 
             if (TemErrosDeValidacao(registro))
@@ -109,22 +109,20 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
 
             Console.WriteLine();
 
-            int id = EncontrarId();
+            RequisicaoSaida requisicaoSaida = (RequisicaoSaida)EncontrarRegistro("Digite o id do registro: ");
 
-            RequisicaoSaida requisicaoSaida = repositorioRequisicaoSaida.SelecionarPorId(id);
+            RequisicaoSaida requisicaoSaidaAtualizado = (RequisicaoSaida)ObterRegistro();
 
-            RequisicaoSaida registroAtualizado = (RequisicaoSaida)ObterRegistro();
-
-            requisicaoSaida.DesfazerRegistroSaida();
-
-            if (TemErrosDeValidacao(registroAtualizado))
+            if (TemErrosDeValidacao(requisicaoSaidaAtualizado))
             {
                 return;
             }
 
-            registroAtualizado.RegistrarSaida();
+            requisicaoSaida.DesfazerRegistroSaida();
 
-            repositorioBase.Editar(id, registroAtualizado);
+            requisicaoSaidaAtualizado.RegistrarSaida();
+
+            repositorioBase.Editar(requisicaoSaida, requisicaoSaidaAtualizado);
 
             MostrarMensagem("Registro editado com sucesso!", ConsoleColor.Green);
         }
@@ -137,13 +135,13 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
 
             Console.WriteLine();
 
-            int id = EncontrarId();
+            //int id = EncontrarId();
 
-            RequisicaoSaida requisicaoEntrada = repositorioRequisicaoSaida.SelecionarPorId(id);
+            RequisicaoSaida requisicaoSaida = (RequisicaoSaida)EncontrarRegistro("Digite o id do registro: ");
 
-            requisicaoEntrada.DesfazerRegistroSaida();
+            requisicaoSaida.DesfazerRegistroSaida();
 
-            repositorioBase.Excluir(id);
+            repositorioBase.Excluir(requisicaoSaida);
 
             MostrarMensagem("Registro excluído com sucesso!", ConsoleColor.Green);
         }
@@ -189,9 +187,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         {
             telaPaciente.VisualizarRegistros(false);
 
-            int id = EncontrarId(repositorioPaciente);
-
-            Paciente paciente = repositorioPaciente.SelecionarPorId(id);
+            Paciente paciente = (Paciente)telaPaciente.EncontrarRegistro("Digite o id do paciente: ");
 
             Console.WriteLine();
 
@@ -202,9 +198,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         {
             telaFuncionario.VisualizarRegistros(false);
 
-            int id = EncontrarId(repositorioFuncionario);
-            
-            Funcionario funcionario = repositorioFuncionario.SelecionarPorId(id);
+            Funcionario funcionario = (Funcionario)telaFuncionario.EncontrarRegistro("Digite o id do funcionário: ");
 
             Console.WriteLine();
 
@@ -215,9 +209,7 @@ namespace ControleMedicamentos.ConsoleApp.ModuloRequisicaoSaida
         {
             telaMedicamento.VisualizarRegistros(false);
 
-            int id = EncontrarId(repositorioMedicamento);
-
-            Medicamento medicamento = repositorioMedicamento.SelecionarPorId(id);
+            Medicamento medicamento = (Medicamento)telaMedicamento.EncontrarRegistro("Digite o id do medicamento: ");
 
             Console.WriteLine();
 

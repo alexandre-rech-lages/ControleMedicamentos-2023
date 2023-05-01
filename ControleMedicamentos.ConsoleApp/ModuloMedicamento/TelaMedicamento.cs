@@ -87,14 +87,14 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
             DateTime dataValidade = DateTime.MinValue;
 
             bool dataInvalida;
-            
+
             do
             {
                 dataInvalida = false;
 
                 try
-                {                    
-                    dataValidade = Convert.ToDateTime(Console.ReadLine());                    
+                {
+                    dataValidade = Convert.ToDateTime(Console.ReadLine());
                 }
                 catch (FormatException)
                 {
@@ -146,11 +146,9 @@ namespace ControleMedicamentos.ConsoleApp.ModuloMedicamento
 
         private Fornecedor ObterFornecedor()
         {
-            telaFornecedor.VisualizarRegistros(false);            
+            telaFornecedor.VisualizarRegistros(false);
 
-            int id = EncontrarId(repositorioFornecedor);
-
-            Fornecedor fornecedor = repositorioFornecedor.SelecionarPorId(id);
+            Fornecedor fornecedor = (Fornecedor)telaFornecedor.EncontrarRegistro("Digite o id do fornecedor: ");
 
             Console.WriteLine();
 
